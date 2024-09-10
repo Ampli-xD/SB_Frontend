@@ -8,7 +8,7 @@
     const [uploadedData, setUploadedData] = useState([]);
     const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
     const [isDataListOpen, setIsDataListOpen] = useState(false);
-    const WS_URL = 'wss://sb-backend-lmha.onrender.com/ws/chat/';
+    const WS_URL = 'wss://sb-backend-lmha.onrender.com';
     const API_URL = 'https://sb-backend-lmha.onrender.com/';
     const joiningLink = `${API_URL}/chat?roomCode=${roomCode}`;
   

@@ -8,7 +8,7 @@ function ChatArea({}) {
   const chatAreaRef = useRef(null);
   const socketRef = useRef(null);
   const roomCode = new URLSearchParams(window.location.search).get('roomCode');
-  const WS_URL = 'wss://sb-backend-lmha.onrender.com/';
+  const WS_URL = 'wss://sb-backend-lmha.onrender.com';
   const API_URL = 'https://sb-backend-lmha.onrender.com/';
 
 
