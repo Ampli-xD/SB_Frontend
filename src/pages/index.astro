@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import RoomManager from '../components/RoomManager.astro';
+
+const appName = "StormBrainer";
+---
+
+<Layout title={appName}>
+  <div class="min-h-screen flex flex-col">
+    <Header appName={appName} />
+    <main class="flex-grow flex items-center justify-center p-4">
+      <RoomManager />
+    </main>
+  </div>
+</Layout>

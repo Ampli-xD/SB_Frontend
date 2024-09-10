@@ -1,0 +1,19 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  appName: string;
+}
+
+const { appName } = Astro.props;
+---
+
+<header class="bg-primary text-secondary shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-4">
+      <img src="/placeholder.svg?height=40&width=40" alt="App Logo" class="h-10 w-10">
+      <h1 class="text-xl font-bold">{appName}</h1>
+    </div>
+    <ThemeToggle />
+  </div>
+</header>
