@@ -17,7 +17,8 @@
     "lucide-react": "^0.439.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "vercel": "^37.4.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^5.1.0",
