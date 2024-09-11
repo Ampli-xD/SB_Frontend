@@ -14,7 +14,9 @@ function ChatArea({}) {
 
   useEffect(() => {
     // Initialize socket connection
-    socketRef.current = io(WS_URL);
+    socketRef.current = io(WS_URL, {query: { roomCode }});
+    // After the socket connection
+    socketRef.current.emit('join_room', { roomCode });
 
     // Fetch initial messages
     const fetchMessages = async () => {
