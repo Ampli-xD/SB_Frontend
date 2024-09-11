@@ -8,8 +8,8 @@
     const [uploadedData, setUploadedData] = useState([]);
     const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
     const [isDataListOpen, setIsDataListOpen] = useState(false);
-    const WS_URL = 'wss://sb-backend-lmha.onrender.com';
-    const API_URL = 'https://sb-backend-lmha.onrender.com/';
+    const WS_URL = 'ws://127.0.0.1/5000';
+    const API_URL = 'http://127.0.0.1:/5000';
     const joiningLink = `${API_URL}/chat?roomCode=${roomCode}`;
   
     useEffect(() => {
