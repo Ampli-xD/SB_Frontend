@@ -50,6 +50,7 @@
   
       fetchOnlineUsers();
       fetchUploadedData();
+      fetchRoomName();
   
       socket.on('online_users_update', (users) => {
         setOnlineUsers(users);
