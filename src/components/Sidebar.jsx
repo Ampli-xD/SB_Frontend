@@ -1,5 +1,5 @@
   import React, { useState, useEffect } from 'react';
-  import { Users, Database, Download } from 'lucide-react';
+  import { Users, Database, Download, Menu } from 'lucide-react';
   import io from 'socket.io-client';
   
   function Sidebar({ appName }) {
