@@ -10,7 +10,7 @@
     const [isDataListOpen, setIsDataListOpen] = useState(false);
     const WS_URL = 'wss://sb-backend-lmha.onrender.com';
     const API_URL = 'https://sb-backend-lmha.onrender.com/';
-    const joiningLink = `${API_URL}/chat?roomCode=${roomCode}`;
+    const joiningLink = `stormbrainer.vercel.app/chat?roomCode=${roomCode}`;
   
     useEffect(() => {
       const socket = io(WS_URL, {

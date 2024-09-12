@@ -8,6 +8,7 @@ function ChatArea({}) {
   const chatAreaRef = useRef(null);
   const socketRef = useRef(null);
   const roomCode = new URLSearchParams(window.location.search).get('roomCode');
+  const userName = new URLSearchParams(window.location.search).get('userName');
   const WS_URL = 'wss://sb-backend-lmha.onrender.com';
   const API_URL = 'https://sb-backend-lmha.onrender.com/';
 
@@ -55,6 +56,7 @@ function ChatArea({}) {
   const sendMessage = () => {
     if (inputMessage.trim() && socketRef.current) {
       socketRef.current.emit('chat_message', {
+        userName: userName,
         content: inputMessage,
         roomCode: roomCode
       });
@@ -91,12 +93,12 @@ function ChatArea({}) {
       <div ref={chatAreaRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-secondary">
         {messages.map((message) => (
           <div
-            key={message.id}
+            key={message.id}        
             className={`${
               message.sender === 'You' ? 'ml-auto bg-primary text-secondary' : 'mr-auto bg-accent text-white'
             } rounded-lg p-3 max-w-3/4`}>
             <p className="mb-1">{message.content}</p>
-            <span className="text-xs opacity-75">{new Date(message.timestamp).toLocaleTimeString()}</span>
+            <span className="text-xs opacity-75">by{message.userName}{new Date(message.timestamp).toLocaleTimeString(undefined, {timeZone: 'Asia/Kolkta'})}</span>
           </div>
         ))}
       </div>
