@@ -102,9 +102,9 @@ function ChatArea({}) {
       <div className={`flex justify-between items-center mb-2 w-full ${
         message.sender === userName ? 'flex-row-reverse' : 'flex-row'
       }`}>
-        
-        <span className="text-xs opacity-75">{new Date(message.timestamp).toLocaleTimeString(undefined, {timeZone: 'Asia/Kolkata'})}</span>
         <span className="font-semibold">{message.sender}</span>
+        <span className="text-xs opacity-75">{new Date(message.timestamp).toLocaleTimeString(undefined, {timeZone: 'Asia/Kolkata'})}</span>
+        
       </div>
       <p className="w-full break-words whitespace-normal overflow-wrap-break-word word-break-all">
         {message.content}
