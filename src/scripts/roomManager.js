@@ -25,7 +25,7 @@ async function createRoom(userName, roomName, geminiKey, pineconeKey) {
   }
 }
 
-async function joinRoom(roomCode) {
+async function joinRoom(userName, roomCode) {
   try {
     const response = await fetch(`${API_BASE_URL}/api/rooms/join`, {
       method: 'POST',
