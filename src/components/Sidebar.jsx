@@ -8,6 +8,7 @@
     const [uploadedData, setUploadedData] = useState([]);
     const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
     const [isDataListOpen, setIsDataListOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const WS_URL = 'wss://sb-backend-lmha.onrender.com';
     const API_URL = 'https://sb-backend-lmha.onrender.com/';
     const joiningLink = `stormbrainer.vercel.app/chat?roomCode=${roomCode}`;
