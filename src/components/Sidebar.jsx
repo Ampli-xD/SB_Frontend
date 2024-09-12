@@ -79,11 +79,18 @@
     };
   
   return (
-    <div className="w-64 bg-primary text-secondary border-r border-secondary flex flex-col">
-      <div className="p-4 border-b border-secondary flex items-center">
-        <img src="/placeholder.svg?height=40&width=40" alt="Logo" className="h-8 w-8 mr-2" />
-        <h1 className="text-xl font-bold">{appName}</h1>
-      </div>
+    <>
+    <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="lg:hidden fixed top-4 left-4 z-20 bg-primary text-secondary p-2 rounded-md"
+      >
+        <Menu size={24} />
+      </button>
+      <div className={`w-64 bg-primary text-secondary border-r border-secondary flex flex-col fixed inset-y-0 left-0 z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
+        <div className="p-4 border-b border-secondary flex items-center">
+          <img src="/placeholder.svg?height=40&width=40" alt="Logo" className="h-8 w-8 mr-2" />
+          <h1 className="text-xl font-bold">{appName}</h1>
+        </div>
 
       <div className="p-4 border-b border-secondary">
         <p className="text-sm text-secondary mb-1">Joining link</p>
@@ -146,6 +153,7 @@
         </button>
       </div>
     </div>
+    </>
   );
 }
 

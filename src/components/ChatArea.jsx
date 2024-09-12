@@ -89,7 +89,7 @@ function ChatArea({}) {
   };
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col lg:ml-64">
       <div ref={chatAreaRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-secondary">
         {messages.map((message) => (
           <div
