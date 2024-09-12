@@ -74,12 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const roomName = roomNameInput.value.trim();
     const geminiKey = geminiKeyInput.value.trim();
     const pineconeKey = pineconeKeyInput.value.trim();
-    const userName = userNameCreateInput.value.trim();
+    const userNameCreate = userNameCreateInput.value.trim();
     if (roomName && geminiKey && pineconeKey) {
       try {
         const result = await createRoom(userName, roomName, geminiKey, pineconeKey);
         if (result.success) {
-          window.location.href = `/chat?roomCode=${result.roomCode}&userName=${userName}`;
+          window.location.href = `/chat?roomCode=${result.roomCode}&userName=${userNameCreate}`;
         } else {
           showStatus(result.error, true);
         }
@@ -93,12 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   joinRoomBtn?.addEventListener('click', async () => {
     const roomCode = roomCodeInput.value.trim();
-    const userName = userNameJoinInput.value.trim();
+    const userNameJoin = userNameJoinInput.value.trim();
     if (roomCode) {
       try {
         const result = await joinRoom(userName, roomCode); 
         if (result.success) {
-          window.location.href = `/chat?roomCode=${roomCode}`;
+          window.location.href = `/chat?roomCode=${roomCode}&userName=${userNameJoin}`;
         } else {
           showStatus(result.error, true);
         }
