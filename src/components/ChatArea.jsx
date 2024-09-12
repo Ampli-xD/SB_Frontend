@@ -108,7 +108,7 @@ function ChatArea({}) {
       <p>{message.content}</p>
     </div>
   ))}
-</div>fix
+</div>
       <div className="bg-primary text-secondary p-4 border-t border-secondary">
         <div className="flex items-center">
           <input
