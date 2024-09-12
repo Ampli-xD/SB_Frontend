@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (roomName && geminiKey && pineconeKey) {
       try {
         const result = await createRoom(userName, roomName, geminiKey, pineconeKey);
+        console.log(result);
         if (result.success) {
           window.location.href = `/chat?roomCode=${roomCode}&userName=${userName}`;
         } else {
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const result = await joinRoom(userName, roomCode); 
         if (result.success) {
-          window.location.href = `/chat?roomCode=${roomCode}&userName=${userName}`;
+          window.location.href = `/chat?roomCode=${roomCode}`;
         } else {
           showStatus(result.error, true);
         }
