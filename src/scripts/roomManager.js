@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const roomNameInput = document.getElementById('roomName');
   const roomCodeInput = document.getElementById('roomCode');
   const geminiKeyInput = document.getElementById('geminiKey');
-  const userNameInput = document.getElementById('userName');
+  const userNameCreateInput = document.getElementById('userName1');
+  const userNameJoinInput = document.getElementById('userName2');
   const pineconeKeyInput = document.getElementById('pineconeKey');
   const importFileInput = document.getElementById('importFile');
 
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const roomName = roomNameInput.value.trim();
     const geminiKey = geminiKeyInput.value.trim();
     const pineconeKey = pineconeKeyInput.value.trim();
-    const userName = userNameInput.value.trim();
+    const userName = userNameCreateInput.value.trim();
     if (roomName && geminiKey && pineconeKey) {
       try {
         const result = await createRoom(userName, roomName, geminiKey, pineconeKey);
@@ -92,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   joinRoomBtn?.addEventListener('click', async () => {
     const roomCode = roomCodeInput.value.trim();
-    const userName = userNameInput.value.trim();
+    const userName = userNameJoinInput.value.trim();
     if (roomCode) {
       try {
         const result = await joinRoom(userName, roomCode); 
