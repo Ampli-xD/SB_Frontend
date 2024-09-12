@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const roomNameInput = document.getElementById('roomName');
   const roomCodeInput = document.getElementById('roomCode');
   const geminiKeyInput = document.getElementById('geminiKey');
-  const userNameCreateInput = document.getElementById('userName1');
-  const userNameJoinInput = document.getElementById('userName2');
+  const userNameCreateInput = document.getElementById('userName2');
+  const userNameJoinInput = document.getElementById('userName1');
   const pineconeKeyInput = document.getElementById('pineconeKey');
   const importFileInput = document.getElementById('importFile');
 
