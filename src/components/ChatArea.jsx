@@ -90,7 +90,7 @@ function ChatArea({}) {
 
   return (
     <div className="flex-1 flex flex-col lg:ml-64">
-      <div ref={chatAreaRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-secondary">
+      <div ref={chatAreaRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-secondary w-full max-w-3xl mx-auto">
   {messages.map((message) => (
     <div
       key={message.id}        
@@ -98,14 +98,16 @@ function ChatArea({}) {
         message.sender === userName 
           ? 'ml-auto bg-blue-500 text-white' 
           : 'mr-auto bg-gray-200 text-gray-800'
-      } rounded-lg p-3 max-w-3/4 break-words`}>
-      <div className={`flex justify-between items-center mb-2 ${
+      } rounded-lg p-3 max-w-3/4 flex flex-wrap`}>
+      <div className={`flex justify-between items-center mb-2 w-full ${
         message.sender === userName ? 'flex-row-reverse' : 'flex-row'
       }`}>
         <span className="font-semibold">{message.sender}</span>
         <span className="text-xs opacity-75">{new Date(message.timestamp).toLocaleTimeString(undefined, {timeZone: 'Asia/Kolkata'})}</span>
       </div>
-      <p>{message.content}</p>
+      <p className="w-full break-words whitespace-normal overflow-wrap-break-word word-break-all">
+        {message.content}
+      </p>
     </div>
   ))}
 </div>
