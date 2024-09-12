@@ -11,7 +11,7 @@
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const WS_URL = 'wss://sb-backend-lmha.onrender.com';
     const API_URL = 'https://sb-backend-lmha.onrender.com/';
-    const joiningLink = `stormbrainer.vercel.app/chat?roomCode=${roomCode}`;
+    const joiningLink = `stormbrainer.vercel.app/`;
   
     useEffect(() => {
       const socket = io(WS_URL, {
@@ -56,7 +56,7 @@
   
     const copyJoiningLink = () => {
       navigator.clipboard.writeText(joiningLink).then(() => {
-        alert('Joining link copied to clipboard!');
+        alert('Room Code copied to clipboard!');
       }).catch(err => {
         console.error('Failed to copy: ', err);
       });
@@ -94,9 +94,9 @@
         </div>
 
       <div className="p-4 border-b border-secondary">
-        <p className="text-sm text-secondary mb-1">Joining link</p>
+        <p className="text-sm text-secondary mb-1">Room Code: {roomCode}</p>
         <button onClick={copyJoiningLink} className="text-secondary hover:text-secondary-200 text-sm font-medium">
-          Click to copy!!
+          Click to copy SB url!!!
         </button>
       </div>
 
