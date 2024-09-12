@@ -98,7 +98,7 @@ function ChatArea({}) {
               message.sender === userName ? 'ml-auto bg-primary text-secondary' : 'mr-auto bg-accent text-white'
             } rounded-lg p-3 max-w-3/4`}>
             <p className="mb-1">{message.content}</p>
-            <span className="text-xs opacity-75">by{message.userName}{new Date(message.timestamp).toLocaleTimeString(undefined, {timeZone: 'Asia/Kolkata'})}</span>
+            <span className="text-xs opacity-75">by{message.sender} at {new Date(message.timestamp).toLocaleTimeString(undefined, {timeZone: 'Asia/Kolkata'})}</span>
           </div>
         ))}
       </div>
