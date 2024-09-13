@@ -18,7 +18,7 @@
       const socket = io(WS_URL, {
         query: { roomCode }
       });
-  
+      
       const fetchOnlineUsers = async () => {
         try {
           const response = await fetch(`/api/online-users?roomCode=${roomCode}`);
