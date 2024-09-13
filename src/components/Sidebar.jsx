@@ -40,7 +40,7 @@
       // };
       const fetchRoomName = async () => {
         try {
-          const response = await fetch(`/api/room/name/`);
+          const response = await fetch(`/api/rooms/name/`);
           const data = await response.json();
           return(data.roomName);
         } catch (error) {
