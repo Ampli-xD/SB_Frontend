@@ -42,7 +42,7 @@
         try {
           const response = await fetch(`/api/room/name/`);
           const data = await response.json();
-          roomName = data.roomName
+          return(data.roomName);
         } catch (error) {
           console.error('Error fetching online users:', error);
         }
@@ -50,7 +50,7 @@
   
       fetchOnlineUsers();
       fetchUploadedData();
-      fetchRoomName();
+      roomName = fetchRoomName();
   
       socket.on('online_users_update', (users) => {
         setOnlineUsers(users);
@@ -107,7 +107,7 @@
       <div className="p-4 border-b border-secondary">
         <p className="text-sm text-secondary mb-1">Room Code: {roomCode}</p>
         <button onClick={copyJoiningLink} className="text-secondary hover:text-secondary-200 text-sm font-medium">
-          Click to copy SB url!!!
+          Click to copy url.
         </button>
       </div>
 
