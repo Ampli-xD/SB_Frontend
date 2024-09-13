@@ -4,7 +4,7 @@
   
   function Sidebar({ appName }) {
     const roomCode = new URLSearchParams(window.location.search).get('roomCode');
-    const roomName = "";
+    let roomName = "";
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [uploadedData, setUploadedData] = useState([]);
     const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
@@ -42,7 +42,7 @@
         try {
           const response = await fetch(`/api/room/name/`);
           const data = await response.json();
-          return(data.roomName);
+          roomName = data.roomName
         } catch (error) {
           console.error('Error fetching online users:', error);
         }
@@ -50,7 +50,7 @@
   
       fetchOnlineUsers();
       fetchUploadedData();
-      roomName = fetchRoomName();
+      fetchRoomName();
   
       socket.on('online_users_update', (users) => {
         setOnlineUsers(users);
