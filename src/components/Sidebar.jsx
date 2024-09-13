@@ -40,9 +40,11 @@
       // };
       const fetchRoomName = async () => {
         try {
+          const data1 = new FormData();
+          data1.append('roomCode', roomCode);
           const response = await fetch(`${API_URL}/api/rooms/name`, {
             method: 'POST',
-            body: {roomCode: roomCode},
+            body: data1,
           });
           const data = await response.json();
           return(data.name);
