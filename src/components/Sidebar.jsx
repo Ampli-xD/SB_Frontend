@@ -11,7 +11,7 @@
     const [isDataListOpen, setIsDataListOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const WS_URL = 'wss://sb-backend-lmha.onrender.com';
-    const API_URL = 'https://sb-backend-lmha.onrender.com/';
+    const API_URL = 'https://sb-backend-lmha.onrender.com';
     const joiningLink = `stormbrainer.vercel.app/`;
   
     useEffect(() => {
@@ -40,7 +40,7 @@
       // };
       const fetchRoomName = async () => {
         try {
-          const response = await fetch(`/api/rooms/name/`);
+          const response = await fetch(`${API_URL}/api/rooms/name`);
           const data = await response.json();
           return(data.roomName);
         } catch (error) {
