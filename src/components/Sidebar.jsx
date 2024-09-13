@@ -125,9 +125,9 @@
         {isOnlineListOpen && (
           <ul className="max-h-32 overflow-y-auto">
           {Array.isArray(onlineUsers) && onlineUsers.length > 0 ? (
-            onlineUsers.map((username, index) => (
-              <li key={index} className="flex justify-between items-center py-1">
-                <span>{username}</span>
+            onlineUsers.map(user => (
+              <li key={user.id} className="flex justify-between items-center py-1">
+                <span>{user.name}</span>
               </li>
             ))
           ) : (
