@@ -4,7 +4,6 @@
   
   function Sidebar({ appName }) {
     const roomCode = new URLSearchParams(window.location.search).get('roomCode');
-    const roomName = "";
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [uploadedData, setUploadedData] = useState([]);
     const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
@@ -42,7 +41,7 @@
         try {
           const response = await fetch(`/api/room/name/`);
           const data = await response.json();
-          roomName = data.roomName
+          return(data.roomName);
         } catch (error) {
           console.error('Error fetching online users:', error);
         }
@@ -50,7 +49,6 @@
   
       fetchOnlineUsers();
       fetchUploadedData();
-      fetchRoomName();
   
       socket.on('online_users_update', (users) => {
         setOnlineUsers(users);
@@ -101,7 +99,7 @@
       <div className={`w-64 bg-primary text-secondary border-r border-secondary flex flex-col fixed inset-y-0 left-0 z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out`}>
         <div className="p-4 border-b border-secondary flex items-center">
           <img src="/placeholder.svg?height=40&width=40" alt="Logo" className="h-8 w-8 mr-2" />
-          <h1 className="text-xl font-bold">{roomName}</h1>
+          <h1 className="text-xl font-bold">{fetchRoomName()}</h1>
         </div>
 
       <div className="p-4 border-b border-secondary">
