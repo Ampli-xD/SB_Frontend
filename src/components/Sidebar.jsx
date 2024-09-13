@@ -40,9 +40,12 @@
       // };
       const fetchRoomName = async () => {
         try {
-          const response = await fetch(`${API_URL}/api/rooms/name`);
+          const response = await fetch(`${API_URL}/api/rooms/name`, {
+            method: 'POST',
+            body: {roomCode: roomCode},
+          });
           const data = await response.json();
-          return(data.roomName);
+          return(data.name);
         } catch (error) {
           console.error('Error fetching online users:', error);
         }
