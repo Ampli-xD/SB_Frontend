@@ -18,7 +18,7 @@
       const socket = io(WS_URL, {
         query: { roomCode }
       });
-      
+
       const fetchOnlineUsers = async () => {
         try {
           const response = await fetch(`/api/online-users?roomCode=${roomCode}`);
@@ -53,6 +53,7 @@
       roomName = fetchRoomName();
   
       socket.on('online_users_update', (users) => {
+        console.log('Received online users:', users);
         setOnlineUsers(users);
       });
   
