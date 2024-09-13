@@ -19,25 +19,25 @@
         query: { roomCode }
       });
 
-      const fetchOnlineUsers = async () => {
-        try {
-          const response = await fetch(`/api/online-users?roomCode=${roomCode}`);
-          const data = await response.json();
-          setOnlineUsers(data);
-        } catch (error) {
-          console.error('Error fetching online users:', error);
-        }
-      };
+      // const fetchOnlineUsers = async () => {
+      //   try {
+      //     const response = await fetch(`/api/online-users?roomCode=${roomCode}`);
+      //     const data = await response.json();
+      //     setOnlineUsers(data);
+      //   } catch (error) {
+      //     console.error('Error fetching online users:', error);
+      //   }
+      // };
   
-      const fetchUploadedData = async () => {
-        try {
-          const response = await fetch(`/api/uploaded-data?roomCode=${roomCode}`);
-          const data = await response.json();
-          setUploadedData(data);
-        } catch (error) {
-          console.error('Error fetching uploaded data:', error);
-        }
-      };
+      // const fetchUploadedData = async () => {
+      //   try {
+      //     const response = await fetch(`/api/uploaded-data?roomCode=${roomCode}`);
+      //     const data = await response.json();
+      //     setUploadedData(data);
+      //   } catch (error) {
+      //     console.error('Error fetching uploaded data:', error);
+      //   }
+      // };
       const fetchRoomName = async () => {
         try {
           const response = await fetch(`/api/room/name/`);
@@ -48,8 +48,8 @@
         }
       };
   
-      fetchOnlineUsers();
-      fetchUploadedData();
+      // fetchOnlineUsers();
+      // fetchUploadedData();
       roomName = fetchRoomName();
   
       socket.on('online_users_update', (users) => {
