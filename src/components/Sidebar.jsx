@@ -133,54 +133,6 @@
         </button>
       </div>
 
-      {/* <div className="p-4 border-b border-secondary">
-        <div 
-          className="flex justify-between items-center mb-2 cursor-pointer"  
-          onClick={() => setIsOnlineListOpen(!isOnlineListOpen)}
-        >
-          <h2 className="font-semibold flex items-center">
-            <Users className="mr-2" size={18} />
-            <span>{onlineUsers.length} online</span>
-          </h2>
-          <i className={`fas fa-chevron-down text-secondary transition-transform duration-300 ${isOnlineListOpen ? 'transform rotate-180' : ''}`}></i>
-        </div>
-        {isOnlineListOpen && (
-          <ul className="max-h-32 overflow-y-auto">
-          {Array.isArray(onlineUsers) && onlineUsers.length > 0 ? (
-            onlineUsers.map(user => (
-              <li key={user.id} className="flex justify-between items-center py-1">
-                <span>{user.name}</span>
-              </li>
-            ))
-          ) : (
-            <li className="py-1">No users online</li>
-          )}
-        </ul>
-        )}
-      </div>*/}
-
-      {/*<div className="p-4 border-b border-secondary">
-        <div 
-          className="flex justify-between items-center mb-2 cursor-pointer"
-          onClick={() => setIsDataListOpen(!isDataListOpen)}
-        >
-          <h2 className="font-semibold flex items-center">
-            <Database className="mr-2" size={18} />
-            <span>Data ({uploadedData.length})</span>
-          </h2>
-          <i className={`fas fa-chevron-down text-secondary transition-transform duration-300 ${isDataListOpen ? 'transform rotate-180' : ''}`}></i>
-        </div>
-        {isDataListOpen && (
-          <ul className="max-h-32 overflow-y-auto">
-            {uploadedData.map(data => (
-              <li key={data.id} className="flex justify-between items-center py-1">
-                <span>{data.filename}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>*/}
-
       <div className="p-4 mt-auto">
         <h2 className="font-semibold mb-2 flex items-center">
           <Download className="mr-2" size={18} />
