@@ -4,7 +4,7 @@
   
   function Sidebar({ appName }) {
     const roomCode = new URLSearchParams(window.location.search).get('roomCode');
-    // let roomName = "";
+    let roomName = "";
     // const [onlineUsers, setOnlineUsers] = useState([]);
     // const [uploadedData, setUploadedData] = useState([]);
     // const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
