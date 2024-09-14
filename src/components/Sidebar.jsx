@@ -10,14 +10,13 @@
     const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
     const [isDataListOpen, setIsDataListOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const socketRef = useRef(null);
     const WS_URL = 'wss://sb-backend-lmha.onrender.com';
     const API_URL = 'https://sb-backend-lmha.onrender.com';
     const joiningLink = `stormbrainer.vercel.app/`;
   
     useEffect(() => {
-      const socket = io(WS_URL, {
-        query: { roomCode }
-      });
+      socketRef.current = io(WS_URL, {query: { roomCode }});
 
       const fetchOnlineUsers = async () => {
         try {
@@ -74,17 +73,17 @@
       fetchUploadedData();
       roomName = fetchRoomName();
   
-      socket.on('online_users_update', (users) => {
+      socketRef.current.on('online_users_update', (users) => {
         console.log('Received online users:', users);
         setOnlineUsers(users);
       });
   
-      socket.on('uploaded_data_update', (data) => {
+      socketRef.current.on('uploaded_data_update', (data) => {
         setUploadedData(data);
       });
   
       return () => {
-        socket.disconnect();
+        socketRef.current.disconnect();
       };
     }, [roomCode]);
   
