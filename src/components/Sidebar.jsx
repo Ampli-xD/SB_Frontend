@@ -21,7 +21,7 @@
 
       const fetchOnlineUsers = async () => {
         try {
-          const response = await fetch(`/api/online-users` ,{
+          const response = await fetch(`${API_URL}/api/online-users` ,{
             method: 'POST',
             headers: {
               "Access-Control-Allow-Headers" : "Content-Type",
@@ -38,14 +38,6 @@
         }
       };
 
-      
-
-
-
-
-
-
-  
       const fetchUploadedData = async () => {
         try {
           const response = await fetch(`/api/uploaded-data?roomCode=${roomCode}`);
@@ -55,14 +47,22 @@
           console.error('Error fetching uploaded data:', error);
         }
       };
+
       const fetchRoomName = async () => {
         try {
           const data1 = new FormData();
           data1.append('roomCode', roomCode);
-          const response = await fetch(`${API_URL}/api/rooms/name`, {
+          const response = await fetch(`${API_URL}/api/rooms/name`,{
             method: 'POST',
-            body: data1,
+            headers: {
+              "Access-Control-Allow-Headers" : "Content-Type",
+              "Access-Control-Allow-Origin": "*",
+              'Content-Type': 'application/json',
+              "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
+            },
+            body: JSON.stringify({ roomCode }),
           });
+          
           const data = await response.json();
           return(data.name);
         } catch (error) {
