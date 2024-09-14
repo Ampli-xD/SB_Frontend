@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Upload } from 'lucide-react';
 import io from 'socket.io-client';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
+
 
 function ChatArea({}) {
   const [messages, setMessages] = useState([]);
@@ -96,7 +99,7 @@ function ChatArea({}) {
       key={message.id}        
       className={`${
         message.sender === userName 
-          ? 'ml-auto bg-blue-500 text-white' 
+          ? 'ml-auto bg-blue-800 text-white' 
           : 'mr-auto bg-gray-200 text-gray-800'
       } rounded-lg p-3 max-w-3/4 flex flex-wrap`}>
       <div className={`flex justify-between items-center mb-2 w-full ${
@@ -106,9 +109,8 @@ function ChatArea({}) {
         <span className="text-xs opacity-75">{new Date(message.timestamp).toLocaleTimeString(undefined, {timeZone: 'Asia/Kolkata'})}</span>
         
       </div>
-      <p className="w-full break-words whitespace-normal overflow-wrap-break-word word-break-all">
-        {message.content}
-      </p>
+      <div className="w-full break-words whitespace-normal overflow-wrap-break-word word-break-all"
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(message.content)) }}/>
     </div>
   ))}
 </div>
