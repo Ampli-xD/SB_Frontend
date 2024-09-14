@@ -17,7 +17,7 @@ function ChatArea({}) {
     // Initialize socket connection
     socketRef.current = io(WS_URL, {query: { roomCode }});
     // After the socket connection
-    socketRef.current.emit('join_room', { 'roomCode': roomCode });
+    socketRef.current.emit('join_room', { 'roomCode': roomCode, 'userName': userName });
 
     // Fetch initial messages
     const fetchMessages = async () => {
