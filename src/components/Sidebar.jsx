@@ -9,7 +9,7 @@
     // const [uploadedData, setUploadedData] = useState([]);
     // const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
     // const [isDataListOpen, setIsDataListOpen] = useState(false);
-    // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     // const socketRef = useRef(null);
     const WS_URL = 'wss://sb-backend-lmha.onrender.com';
     const API_URL = 'https://sb-backend-lmha.onrender.com';
