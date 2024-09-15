@@ -41,7 +41,7 @@ function ChatArea({}) {
       setMessages(prevMessages => [...prevMessages, message]);
     });
 
-    socketRef.current.on('ping_Server', (ping) => {
+    socketRef.current.on('ping_server', (ping) => {
       socketRef.current.emit('ping_server', { 'incrementor' : ping.incrementor+1, 'message' : 'Sent the ping back!'});
     });
 
