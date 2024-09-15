@@ -39,7 +39,10 @@ function ChatArea({}) {
     socketRef.current.on('chat_message', (message) => {
       console.log('Received message:', message);
       setMessages(prevMessages => [...prevMessages, message]);
-      
+    });
+
+    socketRef.current.on('ping_Server', (message) => {
+      socketRef.current.emit('ping_server', { 'incrementor' : message.incrementor+1, 'message' : 'Sent the ping back!'});
     });
 
     // Clean up on component unmount
