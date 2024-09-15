@@ -78,7 +78,7 @@ function ChatArea({}) {
       formData.append('roomCode', roomCode);
 
       try {
-        const response = await fetch(`${API_URL}/upload`, {
+        const response = await fetch(`${API_URL}/api/upload`, {
           method: 'POST',
           body: formData,
         });
@@ -109,7 +109,7 @@ function ChatArea({}) {
         message.sender === userName ? 'flex-row-reverse' : 'flex-row'
       }`}>
         <span className="font-semibold">{message.sender}</span>
-        <span className="text-xs opacity-75">{new Date(message.timestamp).toLocaleTimeString(undefined, {timeZone: 'Asia/Kolkata'})}</span>
+        <span className="text-xs opacity-75">{message.timestamp}</span>
         
       </div>
       <div className="w-full break-words whitespace-normal overflow-wrap-break-word word-break-all"
