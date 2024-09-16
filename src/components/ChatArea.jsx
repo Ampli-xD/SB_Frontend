@@ -25,7 +25,7 @@ function ChatArea({}) {
     // Fetch initial messages
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`${API_URL}/messages/`, {
+        const response = await fetch(`${API_URL}/api/messages`, {
           method: 'POST',
           headers: {
             "Access-Control-Allow-Headers" : "Content-Type",
