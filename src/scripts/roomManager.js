@@ -52,6 +52,7 @@ async function importRoom(file) {
   const formData = new FormData();
   formData.append('file', file);
 
+  
   try {
     const response = await fetch(`${API_BASE_URL}/api/rooms/import`, {
       method: 'POST',
