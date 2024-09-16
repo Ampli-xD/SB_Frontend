@@ -97,7 +97,7 @@
   
     const exportRoom = async () => {
       try {
-        const response = await fetch('/api/export-room', {
+        const response = await fetch(`${API_URL}/api/export-room`, {
           method: 'POST',
           headers: {
             "Access-Control-Allow-Headers" : "Content-Type",
