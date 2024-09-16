@@ -25,7 +25,16 @@ function ChatArea({}) {
     // Fetch initial messages
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`${API_URL}/messages?roomCode=${roomCode}`);
+        const response = await fetch(`${API_URL}/messages/`, {
+          method: 'POST',
+          headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
+          },
+          body: JSON.stringify({ roomCode: roomCode }),
+        });
         const data = await response.json();
         setMessages(data);
       } catch (error) {

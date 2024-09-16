@@ -97,7 +97,19 @@
   
     const exportRoom = async () => {
       try {
-        const response = await fetch(`/api/export-room?roomCode=${roomCode}`);
+        const response = await fetch('/api/export-room', {
+          method: 'POST',
+          headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
+          },
+          body: JSON.stringify({ roomCode: roomCode }),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -111,6 +123,7 @@
         console.error('Error exporting room:', error);
       }
     };
+    
   
   return (
     <>
