@@ -48,6 +48,36 @@ async function joinRoom(userName, roomCode) {
     return { success: false, error: 'An unexpected error occurred' };
   }
 }
+async function importRoom(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/rooms/import`, {
+      method: 'POST',
+      headers: {
+        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
+      },
+      body: formData,
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return { success: true, roomCode: data.roomCode, roomName: data.roomName };
+    } else {
+      return { success: false, error: data.message || 'Failed to import room' };
+    }
+  } catch (error) {
+    console.error('Error importing room:', error);
+    return { success: false, error: 'Error importing room. Please try again.' };
+  }
+}
+
+  
+
+
 
 function showStatus(message, isError = false) {
   const statusMessage = document.getElementById('statusMessage');
@@ -119,25 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const formData = new FormData();
-      formData.append('file', file);
-
-      try {
-        const response = await fetch(`${API_BASE_URL}/rooms/import`, {
-          method: 'POST',
-          body: formData,
-        });
-        const data = await response.json();
-        if (response.ok) {
-          showStatus(`Room imported: ${data.roomName}`);
-          setTimeout(() => {
-            window.location.href = `/chat?roomCode=${data.roomCode}`;
-          }, 1500);
-        } else {
-          showStatus(data.message || 'Failed to import room', true);
-        }
-      } catch (error) {
-        showStatus('Error importing room. Please try again.', true);
+      const result = await importRoom(file);
+      if (result.success) {
+        showStatus(`Room imported: ${result.roomName}`);
+        setTimeout(() => {
+          window.location.href = `/chat?roomCode=${result.roomCode}`;
+        }, 1500);
+      } else {
+        showStatus(result.error, true);
       }
     } else {
       showStatus('Please select a file to import', true);
