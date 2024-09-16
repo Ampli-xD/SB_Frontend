@@ -1,0 +1,68 @@
+---
+// HomePage.astro
+import { Image } from 'astro:assets';
+
+const features = [
+  { title: "Smart Chat", description: "Chat with Storm AI, your brainstorming companion. Use .b for bold and .i for italics." },
+  { title: "File Analysis", description: "Upload documents and let Storm AI analyze them for insights." },
+  { title: "Intelligent Search", description: "Search specific queries from your uploaded files for quick answers." },
+  { title: "Productivity Boost", description: "Enhance your brainstorming sessions with AI-powered assistance." }
+];
+---
+
+<div class="container mx-auto px-4 py-16">
+
+  <div class="text-center mb-16">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-slideDown">Unleash Your Ideas with StormBrainer</h1>
+    <p class="text-xl md:text-2xl mb-8 animate-fadeIn">Brainstorm smarter with AI-powered chat and document analysis</p>
+    <a href="/login" class="bg-accent text-white px-8 py-4 rounded-full font-semibold text-lg inline-flex items-center hover:bg-opacity-90 transition-colors animate-fadeIn">
+      Get Started
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 ml-2">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    {features.map((feature, index) => (
+      <div class={`bg-primary bg-opacity-10 p-6 rounded-lg backdrop-blur-lg hover:scale-105 transition-transform animate-fadeInUp animate-delay-${index}`}>
+        <h3 class="text-xl font-semibold mb-2">{feature.title}</h3>
+        <p class="text-secondary-foreground">{feature.description}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  @keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .animate-slideDown {
+    animation: slideDown 0.8s ease-out forwards;
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  .animate-delay-0 { animation-delay: 0.1s; }
+  .animate-delay-1 { animation-delay: 0.2s; }
+  .animate-delay-2 { animation-delay: 0.3s; }
+  .animate-delay-3 { animation-delay: 0.4s; }
+</style>

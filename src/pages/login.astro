@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import HomePage from '../components/HomePage.astro';
+import RoomManager from '../components/RoomManager.astro';
 
 const appName = "StormBrainer";
 ---
@@ -10,7 +10,7 @@ const appName = "StormBrainer";
   <div class="min-h-screen flex flex-col">
     <Header appName={appName} />
     <main class="flex-grow flex items-center justify-center p-4">
-      <HomePage />
+      <RoomManager />
     </main>
   </div>
 </Layout>
