@@ -1,7 +1,7 @@
 
 const API_BASE_URL = 'http://127.0.0.1:5000';
 
-async function createRoom(roomName, geminiKey, pineconeKey) {
+async function createRoom(userName, roomName, geminiKey, pineconeKey) {
   try {
     const response = await fetch(`${API_BASE_URL}/api/rooms/create`, {
       method: 'POST',
@@ -11,7 +11,7 @@ async function createRoom(roomName, geminiKey, pineconeKey) {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
       },
-      body: JSON.stringify({ roomName, geminiKey, pineconeKey }),
+      body: JSON.stringify({ userName, roomName, geminiKey, pineconeKey }),
     });
     const data = await response.json();
     if (response.ok) {
@@ -25,7 +25,7 @@ async function createRoom(roomName, geminiKey, pineconeKey) {
   }
 }
 
-async function joinRoom(roomCode) {
+async function joinRoom(userName, roomCode) {
   try {
     const response = await fetch(`${API_BASE_URL}/api/rooms/join`, {
       method: 'POST',
@@ -35,7 +35,7 @@ async function joinRoom(roomCode) {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
       },
-      body: JSON.stringify({ roomCode }),
+      body: JSON.stringify({ userName, roomCode }),
     });
     const data = await response.json();
     if (response.ok) {
@@ -48,6 +48,37 @@ async function joinRoom(roomCode) {
     return { success: false, error: 'An unexpected error occurred' };
   }
 }
+async function importRoom(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/rooms/import`, {
+      method: 'POST',
+      headers: {
+        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
+      },
+      body: formData,
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return { success: true, roomCode: data.roomCode, roomName: data.roomName };
+    } else {
+      return { success: false, error: data.message || 'Failed to import room' };
+    }
+  } catch (error) {
+    console.error('Error importing room:', error);
+    return { success: false, error: 'Error importing room. Please try again.' };
+  }
+}
+
+  
+
+
 
 function showStatus(message, isError = false) {
   const statusMessage = document.getElementById('statusMessage');
@@ -65,6 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const roomNameInput = document.getElementById('roomName');
   const roomCodeInput = document.getElementById('roomCode');
   const geminiKeyInput = document.getElementById('geminiKey');
+  const userNameCreateInput = document.getElementById('userName2');
+  const userNameJoinInput = document.getElementById('userName1');
   const pineconeKeyInput = document.getElementById('pineconeKey');
   const importFileInput = document.getElementById('importFile');
 
@@ -72,11 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const roomName = roomNameInput.value.trim();
     const geminiKey = geminiKeyInput.value.trim();
     const pineconeKey = pineconeKeyInput.value.trim();
+    const userNameCreate = userNameCreateInput.value.trim();
     if (roomName && geminiKey && pineconeKey) {
       try {
-        const result = await createRoom(roomName, geminiKey, pineconeKey);
+        const result = await createRoom(userNameCreate, roomName, geminiKey, pineconeKey);
         if (result.success) {
-          window.location.href = `/chat?roomCode=${result.roomCode}`;
+          window.location.href = `/chat?roomCode=${result.roomCode}&userName=${userNameCreate}`;
         } else {
           showStatus(result.error, true);
         }
@@ -90,11 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   joinRoomBtn?.addEventListener('click', async () => {
     const roomCode = roomCodeInput.value.trim();
+    const userNameJoin = userNameJoinInput.value.trim();
     if (roomCode) {
       try {
-        const result = await joinRoom(roomCode); 
+        const result = await joinRoom(userNameJoin, roomCode); 
         if (result.success) {
-          window.location.href = `/chat?roomCode=${roomCode}`;
+          window.location.href = `/chat?roomCode=${roomCode}&userName=${userNameJoin}`;
         } else {
           showStatus(result.error, true);
         }
@@ -115,25 +150,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const formData = new FormData();
-      formData.append('file', file);
-
-      try {
-        const response = await fetch(`${API_BASE_URL}/rooms/import`, {
-          method: 'POST',
-          body: formData,
-        });
-        const data = await response.json();
-        if (response.ok) {
-          showStatus(`Room imported: ${data.roomName}`);
-          setTimeout(() => {
-            window.location.href = `/chat?roomCode=${data.roomCode}`;
-          }, 1500);
-        } else {
-          showStatus(data.message || 'Failed to import room', true);
-        }
-      } catch (error) {
-        showStatus('Error importing room. Please try again.', true);
+      const result = await importRoom(file);
+      if (result.success) {
+        showStatus(`Room imported: ${result.roomName}`);
+        setTimeout(() => {
+          window.location.href = `/chat?roomCode=${result.roomCode}`;
+        }, 1500);
+      } else {
+        showStatus(result.error, true);
       }
     } else {
       showStatus('Please select a file to import', true);

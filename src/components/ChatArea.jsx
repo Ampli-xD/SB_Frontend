@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Upload } from 'lucide-react';
 import io from 'socket.io-client';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
+
 
 function ChatArea({}) {
   const [messages, setMessages] = useState([]);
@@ -17,12 +20,21 @@ function ChatArea({}) {
     // Initialize socket connection
     socketRef.current = io(WS_URL, {query: { roomCode }});
     // After the socket connection
-    socketRef.current.emit('join_room', { 'roomCode': roomCode });
+    socketRef.current.emit('join_room', { 'roomCode': roomCode, 'userName': userName });
 
     // Fetch initial messages
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`${API_URL}/messages?roomCode=${roomCode}`);
+        const response = await fetch(`${API_URL}/api/messages`, {
+          method: 'POST',
+          headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"
+          },
+          body: JSON.stringify({ roomCode: roomCode }),
+        });
         const data = await response.json();
         setMessages(data);
       } catch (error) {
@@ -36,7 +48,10 @@ function ChatArea({}) {
     socketRef.current.on('chat_message', (message) => {
       console.log('Received message:', message);
       setMessages(prevMessages => [...prevMessages, message]);
-      
+    });
+
+    socketRef.current.on('ping_server', (ping) => {
+      socketRef.current.emit('ping_server', { 'incrementor' : ping.incrementor+1, 'message' : 'Sent the ping back!'});
     });
 
     // Clean up on component unmount
@@ -56,6 +71,7 @@ function ChatArea({}) {
   const sendMessage = () => {
     if (inputMessage.trim() && socketRef.current) {
       socketRef.current.emit('chat_message', {
+        userName: userName,
         content: inputMessage,
         roomCode: roomCode
       });
@@ -71,7 +87,7 @@ function ChatArea({}) {
       formData.append('roomCode', roomCode);
 
       try {
-        const response = await fetch(`${API_URL}/upload`, {
+        const response = await fetch(`${API_URL}/api/upload`, {
           method: 'POST',
           body: formData,
         });
@@ -88,19 +104,28 @@ function ChatArea({}) {
   };
 
   return (
-    <div className="flex-1 flex flex-col">
-      <div ref={chatAreaRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-secondary">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`${
-              message.sender === 'You' ? 'ml-auto bg-primary text-secondary' : 'mr-auto bg-accent text-white'
-            } rounded-lg p-3 max-w-3/4`}>
-            <p className="mb-1">{message.content}</p>
-            <span className="text-xs opacity-75">{new Date(message.timestamp).toLocaleTimeString()}</span>
-          </div>
-        ))}
+    <div className="flex-1 flex flex-col lg:ml-64">
+      <div ref={chatAreaRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-secondary w-full max-w-3xl mx-auto">
+  {messages.map((message) => (
+    <div
+      key={message.id}        
+      className={`${
+        message.sender === userName 
+          ? 'ml-auto bg-blue-800 text-white' 
+          : 'mr-auto bg-gray-200 text-gray-800'
+      } rounded-lg p-3 max-w-3/4 flex flex-wrap`}>
+      <div className={`flex justify-between items-center mb-2 w-full ${
+        message.sender === userName ? 'flex-row-reverse' : 'flex-row'
+      }`}>
+        <span className="font-semibold">{message.sender}</span>
+        <span className="text-xs opacity-75">{message.timestamp}</span>
+        
       </div>
+      <div className="w-full break-words whitespace-normal overflow-wrap-break-word word-break-all"
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(message.content)) }}/>
+    </div>
+  ))}
+</div>
       <div className="bg-primary text-secondary p-4 border-t border-secondary">
         <div className="flex items-center">
           <input

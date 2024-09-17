@@ -5,14 +5,13 @@ import Sidebar from '../components/Sidebar.jsx';
 import ChatArea from '../components/ChatArea.jsx';
 
 const appName = "StormBrainer";
-console.log(Astro.url);
 ---
 
 <Layout title={appName}>
-  <div class="flex h-screen bg-secondary text-primary transition-colors duration-300">
-    <Sidebar client:only appName={appName} />
-    <div class="flex-1 flex flex-col">
-      <Header appName={appName} />
+  <div class="flex flex-col h-screen bg-secondary text-primary transition-colors duration-300">
+    <Header appName={appName} />
+    <div class="flex-1 flex overflow-hidden">
+      <Sidebar client:only appName={appName}/>
       <ChatArea client:only />
     </div>
   </div>
