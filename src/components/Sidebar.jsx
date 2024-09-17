@@ -4,13 +4,16 @@
   
   function Sidebar({ appName }) {
     const roomCode = new URLSearchParams(window.location.search).get('roomCode');
-    const [onlineUsers, setOnlineUsers] = useState([]);
-    const [uploadedData, setUploadedData] = useState([]);
-    const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
-    const [isDataListOpen, setIsDataListOpen] = useState(false);
-    const WS_URL = 'ws://127.0.0.1/5000';
-    const API_URL = 'http://127.0.0.1:/5000';
-    const joiningLink = `${API_URL}/chat?roomCode=${roomCode}`;
+    let roomName = "";
+    // const [onlineUsers, setOnlineUsers] = useState([]);
+    // const [uploadedData, setUploadedData] = useState([]);
+    // const [isOnlineListOpen, setIsOnlineListOpen] = useState(false);
+    // const [isDataListOpen, setIsDataListOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    // const socketRef = useRef(null);
+    const WS_URL = 'wss://sb-backend-lmha.onrender.com';
+    const API_URL = 'https://sb-backend-lmha.onrender.com';
+    const joiningLink = `stormbrainer.vercel.app/`;
   
     useEffect(() => {
       const socket = io(WS_URL, {
