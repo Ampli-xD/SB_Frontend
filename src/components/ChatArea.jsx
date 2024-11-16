@@ -4,7 +4,6 @@ import io from 'socket.io-client';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
-
 function ChatArea({}) {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -14,7 +13,6 @@ function ChatArea({}) {
   const userName = new URLSearchParams(window.location.search).get('userName');
   const WS_URL = 'wss://sb-backend-lmha.onrender.com';
   const API_URL = 'https://sb-backend-lmha.onrender.com';
-
 
   useEffect(() => {
     // Initialize socket connection
@@ -104,46 +102,62 @@ function ChatArea({}) {
   };
 
   return (
-    <div className="flex-1 flex flex-col lg:ml-64">
-      <div ref={chatAreaRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-secondary w-full max-w-3xl mx-auto">
-  {messages.map((message) => (
-    <div
-      key={message.id}        
-      className={`${
-        message.sender === userName 
-          ? 'ml-auto bg-blue-800 text-white' 
-          : 'mr-auto bg-gray-200 text-gray-800'
-      } rounded-lg p-3 max-w-3/4 flex flex-wrap`}>
-      <div className={`flex justify-between items-center mb-2 w-full ${
-        message.sender === userName ? 'flex-row-reverse' : 'flex-row'
-      }`}>
-        <span className="font-semibold">{message.sender}</span>
-        <span className="text-xs opacity-75">{message.timestamp}</span>
-        
+    <div className="flex flex-col h-full w-full bg-gray-50 dark:bg-gray-900">
+      {/* Chat messages area */}
+      <div 
+        ref={chatAreaRef}
+        className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600"
+      >
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`flex ${message.userName === userName ? 'justify-end' : 'justify-start'}`}
+          >
+            <div
+              className={`max-w-[70%] break-words rounded-lg p-3 ${
+                message.userName === userName
+                  ? 'bg-blue-600 text-white ml-4'
+                  : 'bg-white dark:bg-gray-800 dark:text-gray-100 mr-4'
+              } shadow-md`}
+            >
+              <div className="text-xs opacity-75 mb-1">{message.userName}</div>
+              <div 
+                className="prose dark:prose-invert max-w-none"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(marked(message.content))
+                }}
+              />
+            </div>
+          </div>
+        ))}
       </div>
-      <div className="w-full break-words whitespace-normal overflow-wrap-break-word word-break-all"
-      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(message.content)) }}/>
-    </div>
-  ))}
-</div>
-      <div className="bg-primary text-secondary p-4 border-t border-secondary">
-        <div className="flex items-center">
+
+      {/* Message input area */}
+      <div className="border-t dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+        <div className="flex items-center space-x-2">
           <input
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
             placeholder="Type your message..."
-            className="flex-1 px-4 py-2 bg-secondary text-primary rounded-l-md focus:outline-none focus:ring-2 focus:ring-accent"/>
+            className="flex-1 px-4 py-2 rounded-lg border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100"
+          />
+          <label className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-colors">
+            <input
+              type="file"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
+            <Upload className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+          </label>
           <button
             onClick={sendMessage}
-            className="bg-accent text-white px-4 py-2 rounded-r-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2">
-            <Send size={20} />
+            className="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+          >
+            <Send className="w-5 h-5" />
           </button>
-          <label className="ml-2 cursor-pointer">
-            <input type="file" className="hidden" onChange={handleFileUpload} />
-            <Upload size={20} className="text-accent hover:text-opacity-80" />
-          </label>
         </div>
       </div>
     </div>
