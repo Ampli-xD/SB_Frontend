@@ -1,16 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
 import HomePage from '../components/HomePage.astro';
 
 const appName = "StormBrainer";
 ---
 
 <Layout title={appName}>
-  <div class="min-h-screen flex flex-col">
-    <Header appName={appName} />
-    <main class="flex-grow flex items-center justify-center p-4">
-      <HomePage />
-    </main>
-  </div>
+  <main class="min-h-screen">
+    <HomePage />
+  </main>
 </Layout>
